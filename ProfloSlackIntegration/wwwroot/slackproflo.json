@@ -1,0 +1,416 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+    "version": "1.0.0",
+    "title": "Swagger Core",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "team",
+      "description": "Everything about your team",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "board",
+      "description": "Everything about your board",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "list",
+      "description": "Everything about your list",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/team": {
+      "post": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Create a team",
+        "description": "Summary about the team",
+        "operationId": "CreateTeam",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be added to the team",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/team"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/team/{teamId}": {
+      "delete": {
+        "tags": [
+          "team"
+        ],
+        "summary": "Delete an existing team",
+        "description": "",
+        "operationId": "deleteTeam",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "teamId",
+            "in": "path",
+            "description": "Team object that needs to be deleted from the Teams",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully deleted "
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Team not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/board": {
+      "post": {
+        "tags": [
+          "board"
+        ],
+        "summary": "Create a board",
+        "description": "Summary about the board",
+        "operationId": "CreateBoard",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be added to the board",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/board"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/board/{boardId}": {
+      "delete": {
+        "tags": [
+          "board"
+        ],
+        "summary": "Delete an existing board",
+        "description": "",
+        "operationId": "deleteBoard",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "boardId",
+            "in": "path",
+            "description": "Team object that needs to be deleted from the Boards",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully deleted "
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Board not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/list": {
+      "post": {
+        "tags": [
+          "list"
+        ],
+        "summary": "Create a list",
+        "description": "Summary about the list",
+        "operationId": "CreateList",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be added to the list",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/list"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/list/{listId}": {
+      "delete": {
+        "tags": [
+          "list"
+        ],
+        "summary": "Delete an existing list",
+        "description": "",
+        "operationId": "deleteList",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "listId",
+            "in": "path",
+            "description": "Team object that needs to be deleted from the Lists",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully deleted "
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "List not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/card": {
+      "post": {
+        "tags": [
+          "card"
+        ],
+        "summary": "Create a card",
+        "description": "Summary about the card",
+        "operationId": "CreateCard",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be added to the card",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/card"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/card/{cardId}": {
+      "delete": {
+        "tags": [
+          "card"
+        ],
+        "summary": "Delete an existing card",
+        "description": "",
+        "operationId": "deleteCard",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Team object that needs to be deleted from the Cards",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully deleted "
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Card not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "team": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "teamId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "teamName": {
+          "type": "string"
+        }
+      }
+    },
+    "board": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "boardId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "boardName": {
+          "type": "string"
+        }
+      }
+    },
+    "list": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "listId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "listName": {
+          "type": "string"
+        }
+      }
+    },
+    "card": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "cardId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "cardName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+version: '3.0'
+services:
+  slack-proflo-integration:
+    image: proflo/slack-proflo-integration
+    ports:
+      - "5000:80"
+    depends_on:
+      - slack-proflo-integration-db
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      mongo_db: "mongodb://slack-proflo-integration-db:27017"
+  slack-proflo-integration-db:
+    image: mvbertes/alpine-mongo
+    ports:
+      - "27017:27017"

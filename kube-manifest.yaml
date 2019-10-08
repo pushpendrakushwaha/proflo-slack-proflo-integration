@@ -1,0 +1,118 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yml -o kube-manifest.yaml
+      kompose.version: 1.18.0 (06a2e56)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: slack-proflo-integration
+    name: slack-proflo-integration
+  spec:
+    type: NodePort
+    ports:
+    - name: "5001"
+      port: 5001
+      targetPort: 80
+    selector:
+      io.kompose.service: slack-proflo-integration
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yml -o kube-manifest.yaml
+      kompose.version: 1.18.0 (06a2e56)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: slack-proflo-integration-db
+    name: slack-proflo-integration-db
+  spec:
+    type: ClusterIP
+    ports:
+    - name: "27017"
+      port: 27017
+      targetPort: 27017
+    selector:
+      io.kompose.service: slack-proflo-integration-db
+  status:
+    loadBalancer: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o kube-manifest.yaml
+        kompose.version: 1.18.0 (06a2e56)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: slack-proflo-integration
+    name: slack-proflo-integration
+  spec:
+    replicas: 1
+    strategy: {}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: slack-proflo-integration
+      spec:
+        containers:
+        - env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Production
+          - name: mongo_db
+            value: mongodb://slack-proflo-integration-db:27017
+          image: proflo/slack-proflo-integration:<VERSION>
+          name: slack-proflo-integration
+          ports:
+          - containerPort: 80
+          resources: {}
+        restartPolicy: Always
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      kompose.cmd: kompose convert -f docker-compose.yml -o kube-manifest.yaml
+      kompose.version: 1.18.0 (06a2e56)
+    creationTimestamp: null
+    labels:
+      io.kompose.service: slack-proflo-integration-db
+    name: slack-proflo-integration-db
+  spec:
+    replicas: 1
+    strategy: {}
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          io.kompose.service: slack-proflo-integration-db
+      spec:
+        containers:
+        - image: mvertes/alpine-mongo
+          name: slack-proflo-integration-db
+          ports:
+          - containerPort: 27017
+          resources: {}
+        restartPolicy: Always
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+   name: slack-proflo-integration-ingress
+   annotations:
+     nginx.ingress.kubernetes.io/rewrite-target: /
+  spec:
+   rules:
+   - host: slack-api.proflo.cgi-wave7.stackroute.io
+     http:
+       paths:
+       - path: /
+         backend:
+           serviceName: slack-proflo-integration
+           servicePort: 80
+kind: List
+metadata: {}
